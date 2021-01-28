@@ -11,19 +11,19 @@ FUNDING_SOURCES = {
 	'fhlb': {
 		'available': 35000,
 		'cost': 0.009,
-		'increment': 10
+		'increment': 95
 	},
 
 	'brokered3m': {
 		'available': 25000,
 		'cost': 0.013,
-		'increment': 50
+		'increment': 55
 	},
 
 	'brokered5m': {
 		'available': 27000,
 		'cost': 0.018,
-		'increment': 75
+		'increment': 65
 	},
 
 	'debt': {
