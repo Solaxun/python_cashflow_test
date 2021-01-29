@@ -6,22 +6,22 @@ Final results should show the balance sheet adjusted for the various cash flows 
 ## Instructions
 Modify *only* the code in `main.py`, starting at line 56.  
 
-Cash flows are provided as raw text which first must be parsed prior to calling `process_cashflows`. Implement `parse_cashflows`, which will be called on `cashflows.txt` prior to it's invocation. For example, tests will call `process_cashflows` as follows:
+Within the body of `process_cashflows` it is assumed that the *parameter* `parsed_cashflows` has been bound to the value returned by the *function* `parse_cashflows`. This requires implementing the *function* `parse_cashflows`, which will be called on `cashflows.txt` prior to invocation of `process_cashflows`. For example, the test cases will call `process_cashflows` as follows:
 
 ```python
-process_cashflows(parse_cashflows('cashflows.txt'),BALANCE_SHEET,FUNDING_SOURCES)
+process_cashflows(parse_cashflows('cashflows.txt'),FUNDING_SOURCES,BALANCE_SHEET)
 ```
 
-In your implementation of `process_cashflows`, assume that the cash flows are already parsed (provided you implemented the parsing code).  You should return a tuple of the `BALANCE_SHEET` and `FUNDING_SOURCES` dictionaries after updating them for the cash flows in `cashflows.txt` and related funding actions taken to neutralize such flows.
+The value returned from this function should be a tuple of the `BALANCE_SHEET` and `FUNDING_SOURCES` dictionaries after updating them for the cash flows in `cashflows.txt` and related funding actions taken to neutralize such flows.
 
 #### The following constraints must be honored:
 - Each funding source may be used up to it's available amount in increments specified by such source.
-  - As an example, below `fedfunds` has $400 available, but may only be borrowed in increments of $50.  Therefore if a $90 shortfall in cash is present, you may only borrow $50 or $100 from this source, not $90.
+  - As an example, below `fedfunds` has $400 available, but may only be borrowed in increments of $50.  Therefore if a $90 shortfall in cash is present, you may only borrow $100 from this source, not $90.
+
+- Balance Sheet cash must at all times remain at or above $20,000.  If a cash flow causes this amount to fall beneath the $20,000 limit, utilize vailable funding to maintain required cash levels.
 
 - Always use the cheapest available funding source first.  Once that
-source is exhausted, use the next cheapest source, etc.
-    
-- Balance Sheet cash must at all times remain at or above $20,000
+source is exhausted, use the next cheapest source, etc.  You should always have enough funding availability to meet cash demands if the implementation is correct.   
  
 ## Simplified Example:
 Below, we only have two funding sources available - fedfunds and fhlb.  Since fhlb is the cheaper funding source, we will always elect to use this source first.
